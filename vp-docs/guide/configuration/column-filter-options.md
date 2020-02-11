@@ -16,6 +16,7 @@ columns: [
       placeholder: 'Filter This Thing', // placeholder for filter input
       filterValue: 'Jane', // initial populated value for this filter
       filterDropdownItems: [], // dropdown (with selected values) instead of text input
+      filterMultiselectDropdownItems: [], // dropdown (with multiple selected values) instead of text input
       filterFn: this.columnFilterFn, //custom filter function that
       trigger: 'enter', //only trigger on enter not on keyup 
     },
@@ -60,6 +61,19 @@ filterDropdownItems: [
   { value: 'c', text: 'Check' }  
 ],
 ```
+
+## filterMultiselectDropdownItems
+
+type `Array of strings`
+
+allows creating a dropdown for filtering multiple items as opposed to an input
+
+```javascript
+//array
+filterMultiselectDropdownItems: ['Blue', 'Red', 'Yellow']
+```
+
+Leave filterMultiselectDropdownItems empty (filterMultiselectDropdownItems: []) to auto-populate the dropdown menu with unique elements fetched from the rows, this option is not supported while using remote table
 
 ## filterFn
 
