@@ -1,9 +1,9 @@
 import VueGoodTable from './components/Table.vue';
-import VueSelect from 'vue-select';
+
 
 const VueGoodTablePlugin = {
   install(Vue, options) {
-    Vue.component('vue-select', VueSelect);
+    //Vue.component('vue-select', VueSelect);
     Vue.component(VueGoodTable.name, VueGoodTable);
   },
 };

@@ -69,9 +69,10 @@
 
 <script>
   import isEqual from 'lodash.isequal';
-
+  import VueSelect from 'vue-select';
   export default {
     name: 'VgtFilterRow',
+    components: {VueSelect},
     props: [
       'filterDropdownOptions',
       'lineNumbers',
