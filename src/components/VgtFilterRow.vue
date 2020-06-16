@@ -43,7 +43,7 @@
         </select>
 
         <!--Manually populated-->
-        <v-select v-if="isMultiselectDropdown(column) === 'manual'"
+        <vue-select v-if="isMultiselectDropdown(column) === 'manual'"
                   :options="column.filterOptions.filterMultiselectDropdownItems"
                   :loading="column.filterOptions.loading"
                   :placeholder="getPlaceholder(column)"
@@ -52,7 +52,7 @@
                   :ref="'vgt-multiselect' + column.label + index"
         />
         <!--Auto populated by the rows, does not work in remote table-->
-        <v-select
+        <vue-select
           v-if="isMultiselectDropdown(column) === 'auto'"
           :options="filterDropdownOptions[column.field]"
           :loading="column.filterOptions.loading"
