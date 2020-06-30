@@ -14668,7 +14668,7 @@ var __vue_render__$6 = function __vue_render__() {
     staticClass: "vgt-loading vgt-center-align"
   }, [_vm._t("loadingContent", [_c('span', {
     staticClass: "vgt-loading__content"
-  }, [_vm._v("\n        Loading...\n      ")])])], 2) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          Loading...\n        ")])])], 2) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "vgt-inner-wrap",
     "class": {
       'is-loading': _vm.isLoading
@@ -14718,7 +14718,7 @@ var __vue_render__$6 = function __vue_render__() {
   }, [_vm._t("table-actions")], 2)], 2), _vm._v(" "), _vm.selectedRowCount ? _c('div', {
     staticClass: "vgt-selection-info-row clearfix",
     "class": _vm.selectionInfoClass
-  }, [_vm._v("\n      " + _vm._s(_vm.selectionInfo) + "\n      "), _c('a', {
+  }, [_vm._v("\n        " + _vm._s(_vm.selectionInfo) + "\n        "), _c('a', {
     attrs: {
       "href": ""
     },
@@ -14728,7 +14728,7 @@ var __vue_render__$6 = function __vue_render__() {
         return _vm.unselectAllInternal(true);
       }
     }
-  }, [_vm._v("\n        " + _vm._s(_vm.clearSelectionText) + "\n      ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          " + _vm._s(_vm.clearSelectionText) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "vgt-selection-info-row__actions vgt-pull-right"
   }, [_vm._t("selected-row-actions")], 2)]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "vgt-fixed-header"
@@ -14832,12 +14832,6 @@ var __vue_render__$6 = function __vue_render__() {
         key: row.originalIndex,
         "class": _vm.getRowStyleClass(row),
         on: {
-          "mouseenter": function mouseenter($event) {
-            return _vm.onMouseenter(row, index);
-          },
-          "mouseleave": function mouseleave($event) {
-            return _vm.onMouseleave(row, index);
-          },
           "dblclick": function dblclick($event) {
             return _vm.onRowDoubleClicked(row, index, $event);
           },
@@ -14850,7 +14844,7 @@ var __vue_render__$6 = function __vue_render__() {
         }
       }, [_vm.lineNumbers ? _c('th', {
         staticClass: "line-numbers"
-      }, [_vm._v("\n            " + _vm._s(_vm.getCurrentIndex(index)) + "\n          ")]) : _vm._e(), _vm._v(" "), _vm.selectable ? _c('th', {
+      }, [_vm._v("\n              " + _vm._s(_vm.getCurrentIndex(index)) + "\n            ")]) : _vm._e(), _vm._v(" "), _vm.selectable ? _c('th', {
         staticClass: "vgt-checkbox-col",
         on: {
           "click": function click($event) {
@@ -14874,7 +14868,7 @@ var __vue_render__$6 = function __vue_render__() {
               return _vm.onCellClicked(row, column, index, $event);
             }
           }
-        }, [_vm._t("table-row", [!column.html ? _c('span', [_vm._v("\n                  " + _vm._s(_vm.collectFormatted(row, column)) + "\n                ")]) : _vm._e(), _vm._v(" "), column.html ? _c('span', {
+        }, [_vm._t("table-row", [!column.html ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.collectFormatted(row, column)) + "\n                  ")]) : _vm._e(), _vm._v(" "), column.html ? _c('span', {
           domProps: {
             "innerHTML": _vm._s(_vm.collect(row, column.field))
           }
@@ -14914,7 +14908,7 @@ var __vue_render__$6 = function __vue_render__() {
     }
   }, [_vm._t("emptystate", [_c('div', {
     staticClass: "vgt-center-align vgt-text-disabled"
-  }, [_vm._v("\n                No data for table\n              ")])])], 2)])]) : _vm._e()], 2)]), _vm._v(" "), _vm.hasFooterSlot ? _c('div', {
+  }, [_vm._v("\n                  No data for table\n                ")])])], 2)])]) : _vm._e()], 2)]), _vm._v(" "), _vm.hasFooterSlot ? _c('div', {
     staticClass: "vgt-wrap__actions-footer"
   }, [_vm._t("table-actions-bottom")], 2) : _vm._e(), _vm._v(" "), _vm.paginate && _vm.paginateOnBottom ? _vm._t("pagination-bottom", [_c('vgt-pagination', {
     ref: "paginationBottom",

@@ -182,12 +182,13 @@
             </template>
           </vgt-header-row>
           <!-- normal rows here. we loop over all rows -->
+<!--          @mouseenter="onMouseenter(row, index)"-->
+<!--          @mouseleave="onMouseleave(row, index)"-->
           <tr
                   v-for="(row, index) in headerRow.children"
                   :key="row.originalIndex"
                   :class="getRowStyleClass(row)"
-                  @mouseenter="onMouseenter(row, index)"
-                  @mouseleave="onMouseleave(row, index)"
+
                   @dblclick="onRowDoubleClicked(row, index, $event)"
                   @click="onRowClicked(row, index, $event)"
                   @auxclick="onRowAuxClicked(row, index, $event)">
