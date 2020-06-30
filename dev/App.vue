@@ -18,6 +18,7 @@
             @on-selected-rows-change="onSelectChanged"
             :columns="columns"
             :rows="rows"
+            mode="remote"
             theme="black-rhino"
             :pagination-options="paginationOptions"
               :select-options="{
@@ -33,6 +34,7 @@
           enabled: true,
           skipDiacritics: true,
           externalQuery: searchTerm,
+
       }">
     </vue-good-table>
 

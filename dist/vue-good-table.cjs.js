@@ -13647,14 +13647,14 @@ var script$6 = {
     };
   },
   watch: {
-    columnFilters: {
-      handler: function handler(oldVal, newVal) {
-        this.$emit('update:isLoading', false);
-        this.filterRows(newVal, false);
-      },
-      deep: true,
-      immediate: true
-    },
+    // columnFilters: {
+    //   handler(oldVal, newVal) {
+    //     this.$emit('update:isLoading', false);
+    //     this.filterRows(newVal, true);
+    //   },
+    //   deep: true,
+    //   immediate: true,
+    // },
     // rows: {
     //   handler() {
     //     this.$emit('update:isLoading', false);
@@ -14365,18 +14365,17 @@ var script$6 = {
             columnFilters: this.columnFilters
           });
         } // if mode is remote, we don't do any filtering here.
+        //******* WHY NOT??????? *********
+        // if (this.mode === 'remote') {
+        //   if (fromFilter) {
+        //     this.$emit('update:isLoading', true);
+        //   } else {
+        //     // if remote filtering has already been taken care of.
+        //     this.filteredRows = computedRows;
+        //   }
+        //   return;
+        // }
 
-
-        if (this.mode === 'remote') {
-          if (fromFilter) {
-            this.$emit('update:isLoading', true);
-          } else {
-            // if remote filtering has already been taken care of.
-            this.filteredRows = computedRows;
-          }
-
-          return;
-        }
 
         var _loop = function _loop(i) {
           var col = _this4.typedColumns[i];

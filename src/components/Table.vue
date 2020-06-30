@@ -457,14 +457,14 @@
     }),
 
     watch: {
-      columnFilters: {
-        handler(oldVal, newVal) {
-          this.$emit('update:isLoading', false);
-          this.filterRows(newVal, false);
-        },
-        deep: true,
-        immediate: true,
-      },
+      // columnFilters: {
+      //   handler(oldVal, newVal) {
+      //     this.$emit('update:isLoading', false);
+      //     this.filterRows(newVal, true);
+      //   },
+      //   deep: true,
+      //   immediate: true,
+      // },
 
       // rows: {
       //   handler() {
@@ -1229,12 +1229,14 @@
         // if (!this.rows.length) return;
         // this is invoked either as a result of changing filters
         // or as a result of modifying rows.
+
         this.columnFilters = columnFilters;
         let computedRows = cloneDeep(this.originalRows);
 
         // do we have a filter to care about?
         // if not we don't need to do anything
         if (this.columnFilters && Object.keys(this.columnFilters).length) {
+
           // every time we filter rows, we need to set current page
           // to 1
           // if the mode is remote, we only need to reset, if this is
@@ -1242,6 +1244,7 @@
           if (this.mode !== 'remote' || fromFilter) {
             this.changePage(1);
           }
+
           // we need to emit an event and that's that.
           // but this only needs to be invoked if filter is changing
           // not when row object is modified.
@@ -1252,17 +1255,19 @@
           }
 
           // if mode is remote, we don't do any filtering here.
-          if (this.mode === 'remote') {
-            if (fromFilter) {
-              this.$emit('update:isLoading', true);
-            } else {
-              // if remote filtering has already been taken care of.
-              this.filteredRows = computedRows;
-            }
-            return;
-          }
+          //******* WHY NOT??????? *********
 
+          // if (this.mode === 'remote') {
+          //   if (fromFilter) {
+          //     this.$emit('update:isLoading', true);
+          //   } else {
+          //     // if remote filtering has already been taken care of.
+          //     this.filteredRows = computedRows;
+          //   }
+          //   return;
+          // }
           for (let i = 0; i < this.typedColumns.length; i++) {
+
             const col = this.typedColumns[i];
             if (this.columnFilters[col.field]) {
               computedRows = each(computedRows, (headerRow) => {
@@ -1280,6 +1285,7 @@
 
                   // If the column has an array of filter values match any
                   if (col.filterOptions && col.filterOptions.filterMultiselectDropdownItems) {
+
                     if(this.columnFilters[col.field].length === 0) {
                       return true;
                     }
