@@ -463,7 +463,7 @@
           this.filterRows(this.columnFilters, false);
         },
         deep: true,
-        immediate: true,
+        //immediate: true,
       },
 
       selectOptions: {
