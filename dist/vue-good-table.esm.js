@@ -13644,9 +13644,9 @@ var script$6 = {
   },
   watch: {
     columnFilters: {
-      handler: function handler() {
+      handler: function handler(oldVal, newVal) {
         this.$emit('update:isLoading', false);
-        this.filterRows(this.columnFilters, false);
+        this.filterRows(newVal, false);
       },
       deep: true,
       immediate: true

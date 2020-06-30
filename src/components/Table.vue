@@ -458,9 +458,9 @@
 
     watch: {
       columnFilters: {
-        handler() {
+        handler(oldVal, newVal) {
           this.$emit('update:isLoading', false);
-          this.filterRows(this.columnFilters, false);
+          this.filterRows(newVal, false);
         },
         deep: true,
         immediate: true,
