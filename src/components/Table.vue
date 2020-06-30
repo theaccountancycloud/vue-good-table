@@ -320,6 +320,7 @@
   import VgtGlobalSearch from './VgtGlobalSearch.vue';
   import VgtTableHeader from './VgtTableHeader.vue';
   import VgtHeaderRow from './VgtHeaderRow.vue';
+  import debounce from 'lodash.debounce';
 
   // here we load each data type module.
   import * as CoreDataTypes from './types/index';
@@ -457,13 +458,13 @@
     }),
 
     watch: {
+
       rows: {
         handler() {
-          this.$emit('update:isLoading', false);
-          this.filterRows(this.columnFilters, false);
+          this.returnWatchObj()
         },
         deep: true,
-        //immediate: true,
+        immediate: true,
       },
 
       selectOptions: {
@@ -912,6 +913,13 @@
     },
 
     methods: {
+
+      returnWatchObj(){
+        debounce(() => {
+          this.$emit('update:isLoading', false);
+          this.filterRows(this.columnFilters, false);
+        }, 1000)
+      },
 
       isFunction(functionToCheck) {
         return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
