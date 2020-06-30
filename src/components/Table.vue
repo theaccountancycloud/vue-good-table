@@ -1255,17 +1255,17 @@
           }
 
           // if mode is remote, we don't do any filtering here.
-          //******* WHY NOT??????? *********
 
-          // if (this.mode === 'remote') {
-          //   if (fromFilter) {
-          //     this.$emit('update:isLoading', true);
-          //   } else {
-          //     // if remote filtering has already been taken care of.
-          //     this.filteredRows = computedRows;
-          //   }
-          //   return;
-          // }
+          if (this.mode === 'remote') {
+            if (fromFilter) {
+              this.$emit('update:isLoading', true);
+            } else {
+              // if remote filtering has already been taken care of.
+              this.filteredRows = computedRows;
+            }
+            return;
+          }
+
           for (let i = 0; i < this.typedColumns.length; i++) {
 
             const col = this.typedColumns[i];
