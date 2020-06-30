@@ -13649,14 +13649,14 @@
       };
     },
     watch: {
-      // rows: {
-      //   handler() {
-      //     //this.$emit('update:isLoading', false);
-      //     // this.filterRows(this.columnFilters, false);
-      //   },
-      //   deep: true,
-      //   immediate: true,
-      // },
+      rows: {
+        handler: function handler() {
+          this.$emit('update:isLoading', false);
+          this.filterRows(this.columnFilters, false);
+        },
+        deep: true,
+        immediate: true
+      },
       selectOptions: {
         handler: function handler() {
           this.initializeSelect();
@@ -14334,9 +14334,10 @@
         var _this4 = this;
 
         var fromFilter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-        // if (!this.rows.length) return;
+        console.log('filtering row'); // if (!this.rows.length) return;
         // this is invoked either as a result of changing filters
         // or as a result of modifying rows.
+
         this.columnFilters = columnFilters;
         var computedRows = lodash_clonedeep(this.originalRows); // do we have a filter to care about?
         // if not we don't need to do anything

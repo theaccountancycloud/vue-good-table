@@ -457,14 +457,14 @@
     }),
 
     watch: {
-      // rows: {
-      //   handler() {
-      //     //this.$emit('update:isLoading', false);
-      //     // this.filterRows(this.columnFilters, false);
-      //   },
-      //   deep: true,
-      //   immediate: true,
-      // },
+      rows: {
+        handler() {
+          this.$emit('update:isLoading', false);
+          this.filterRows(this.columnFilters, false);
+        },
+        deep: true,
+        immediate: true,
+      },
 
       selectOptions: {
         handler() {
@@ -1216,6 +1216,7 @@
 
       // method to filter rows
       filterRows(columnFilters, fromFilter = true) {
+        console.log('filtering row');
         // if (!this.rows.length) return;
         // this is invoked either as a result of changing filters
         // or as a result of modifying rows.
