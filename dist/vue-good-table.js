@@ -13649,7 +13649,7 @@
       };
     },
     watch: {
-      rows: {
+      columnFilters: {
         handler: function handler() {
           this.$emit('update:isLoading', false);
           this.filterRows(this.columnFilters, false);
@@ -13657,6 +13657,14 @@
         deep: true,
         immediate: true
       },
+      // rows: {
+      //   handler() {
+      //     this.$emit('update:isLoading', false);
+      //     this.filterRows(this.columnFilters, false);
+      //   },
+      //   deep: true,
+      //   immediate: true,
+      // },
       selectOptions: {
         handler: function handler() {
           this.initializeSelect();
