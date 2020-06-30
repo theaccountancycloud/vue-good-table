@@ -13649,22 +13649,14 @@
       };
     },
     watch: {
-      // columnFilters: {
-      //   handler(oldVal, newVal) {
-      //     this.$emit('update:isLoading', false);
-      //     this.filterRows(newVal, true);
-      //   },
-      //   deep: true,
-      //   immediate: true,
-      // },
-      // rows: {
-      //   handler() {
-      //     this.$emit('update:isLoading', false);
-      //     this.filterRows(this.columnFilters, false);
-      //   },
-      //   deep: true,
-      //   immediate: true,
-      // },
+      rows: {
+        handler: function handler() {
+          this.$emit('update:isLoading', false);
+          this.filterRows(this.columnFilters, false);
+        },
+        deep: true,
+        immediate: true
+      },
       selectOptions: {
         handler: function handler() {
           this.initializeSelect();
@@ -14342,7 +14334,7 @@
         var _this4 = this;
 
         var fromFilter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-        console.log('filtering row'); // if (!this.rows.length) return;
+        if (!fromFilter) return; // if (!this.rows.length) return;
         // this is invoked either as a result of changing filters
         // or as a result of modifying rows.
 
