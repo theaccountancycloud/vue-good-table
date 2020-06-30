@@ -14333,8 +14333,8 @@ var script$6 = {
 
       var fromFilter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       console.log('trying to filter');
-      console.log('from filter ' + fromFilter);
-      if (!fromFilter) return; // if (!this.rows.length) return;
+      console.log('from filter ' + fromFilter); // if (!fromFilter) return;
+      // if (!this.rows.length) return;
       // this is invoked either as a result of changing filters
       // or as a result of modifying rows.
 
