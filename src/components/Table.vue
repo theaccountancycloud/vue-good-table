@@ -1216,6 +1216,8 @@
 
       // method to filter rows
       filterRows(columnFilters, fromFilter = true) {
+        console.log('trying to filter')
+        console.log('from filter '+fromFilter);
         if (!fromFilter) return;
         // if (!this.rows.length) return;
         // this is invoked either as a result of changing filters
