@@ -459,7 +459,7 @@
     watch: {
       rows: {
         handler() {
-          this.$emit('update:isLoading', false);
+          //this.$emit('update:isLoading', false);
           this.filterRows(this.columnFilters, false);
         },
         deep: true,
