@@ -320,7 +320,6 @@
   import VgtGlobalSearch from './VgtGlobalSearch.vue';
   import VgtTableHeader from './VgtTableHeader.vue';
   import VgtHeaderRow from './VgtHeaderRow.vue';
-  import debounce from 'lodash.debounce';
 
   // here we load each data type module.
   import * as CoreDataTypes from './types/index';
@@ -458,10 +457,10 @@
     }),
 
     watch: {
-
       rows: {
         handler() {
-          this.returnWatchObj()
+          this.$emit('update:isLoading', false);
+          this.filterRows(this.columnFilters, false);
         },
         deep: true,
         immediate: true,
@@ -914,13 +913,6 @@
 
     methods: {
 
-      returnWatchObj(){
-        debounce(() => {
-          this.$emit('update:isLoading', false);
-          this.filterRows(this.columnFilters, false);
-        }, 1000)
-      },
-
       isFunction(functionToCheck) {
         return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
       },
@@ -1224,8 +1216,8 @@
 
       // method to filter rows
       filterRows(columnFilters, fromFilter = true) {
-        console.log('trying to filter')
-        console.log('from filter '+fromFilter);
+        // console.log('trying to filter')
+        // console.log('from filter '+fromFilter);
         // if (!fromFilter) return;
         // if (!this.rows.length) return;
         // this is invoked either as a result of changing filters
