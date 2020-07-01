@@ -314,6 +314,8 @@
   import cloneDeep from 'lodash.clonedeep';
   import filter from 'lodash.filter';
   import isEqual from 'lodash.isequal';
+  import debounce from 'lodash.debounce';
+
   import diacriticless from 'diacriticless';
   import defaultType from './types/default';
   import VgtPagination from './VgtPagination.vue';
@@ -460,7 +462,7 @@
       rows: {
         handler() {
           this.$emit('update:isLoading', false);
-          this.filterRows(this.columnFilters, false);
+          debounce(this.filterRows(this.columnFilters, false), 2000);
         },
         deep: true,
         immediate: true,
@@ -1216,6 +1218,7 @@
 
       // method to filter rows
       filterRows(columnFilters, fromFilter = true) {
+        console.log('trying to filter');
         // console.log('trying to filter')
         // console.log('from filter '+fromFilter);
         // if (!fromFilter) return;
