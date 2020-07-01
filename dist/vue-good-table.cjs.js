@@ -14028,8 +14028,7 @@ var script$6 = {
     rows: {
       handler: function handler() {
         this.$emit('update:isLoading', false);
-        var debounceFilter = lodash_debounce(this.filterRows, 2000);
-        debounceFilter(this.columnFilters, false); // debounce(() => this.filterRows(this.columnFilters, false), 2000);
+        this.debounceFilter(this.filterRows(this.columnFilters, false)); // debounce(() => this.filterRows(this.columnFilters, false), 2000);
       },
       deep: true,
       immediate: true
@@ -14417,6 +14416,9 @@ var script$6 = {
     this.filterDropdownOptions = temp_array;
   },
   methods: {
+    debounceFilter: lodash_debounce(function (filterRows) {
+      return filterRows;
+    }, 2000),
     isFunction: function isFunction(functionToCheck) {
       return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
     },

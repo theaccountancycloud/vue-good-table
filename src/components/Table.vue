@@ -462,8 +462,8 @@
       rows: {
         handler() {
           this.$emit('update:isLoading', false);
-          const debounceFilter = debounce(this.filterRows, 2000);
-          debounceFilter(this.columnFilters, false);
+
+          this.debounceFilter(this.filterRows(this.columnFilters, false));
           // debounce(() => this.filterRows(this.columnFilters, false), 2000);
         },
         deep: true,
@@ -890,6 +890,7 @@
     },
 
     created(){
+
       let temp_array = {};
 
       this.columns.forEach(function (column) {
@@ -916,6 +917,9 @@
     },
 
     methods: {
+
+
+      debounceFilter: debounce((filterRows) => filterRows, 2000),
 
       isFunction(functionToCheck) {
         return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
@@ -1521,10 +1525,13 @@
     },
 
     mounted() {
+
       if (this.perPage) {
         this.currentPerPage = this.perPage;
       }
       this.initializeSort();
+
+
     },
 
     components: {
