@@ -462,7 +462,9 @@
       rows: {
         handler() {
           this.$emit('update:isLoading', false);
-          debounce(() => this.filterRows(this.columnFilters, false), 2000);
+          const debounceFilter = debounce(this.filterRows, 2000);
+          debounceFilter(this.columnFilters, false);
+          // debounce(() => this.filterRows(this.columnFilters, false), 2000);
         },
         deep: true,
         immediate: true,
