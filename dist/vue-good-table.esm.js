@@ -14023,8 +14023,12 @@ var script$6 = {
   watch: {
     rows: {
       handler: function handler() {
+        var _this = this;
+
         this.$emit('update:isLoading', false);
-        lodash_debounce(this.filterRows(this.columnFilters, false), 2000);
+        lodash_debounce(function () {
+          return _this.filterRows(_this.columnFilters, false);
+        }, 2000);
       },
       deep: true,
       immediate: true
@@ -14204,7 +14208,7 @@ var script$6 = {
     // or sort type changes
     //----------------------------------------
     processedRows: function processedRows() {
-      var _this = this;
+      var _this2 = this;
 
       // we only process rows when mode is local
       var computedRows = this.filteredRows;
@@ -14223,14 +14227,14 @@ var script$6 = {
         });
         var filteredRows = [];
         lodash_foreach(allRows, function (row) {
-          lodash_foreach(_this.columns, function (col) {
+          lodash_foreach(_this2.columns, function (col) {
             // if col does not have search disabled,
             if (!col.globalSearchDisabled) {
               // if a search function is provided,
               // use that for searching, otherwise,
               // use the default search behavior
-              if (_this.searchFn) {
-                var foundMatch = _this.searchFn(row, col, _this.collectFormatted(row, col), _this.searchTerm);
+              if (_this2.searchFn) {
+                var foundMatch = _this2.searchFn(row, col, _this2.collectFormatted(row, col), _this2.searchTerm);
 
                 if (foundMatch) {
                   filteredRows.push(row);
@@ -14238,7 +14242,7 @@ var script$6 = {
                 }
               } else {
                 // comparison
-                var matched = defaultType.filterPredicate(_this.collectFormatted(row, col), _this.searchTerm, _this.searchSkipDiacritics);
+                var matched = defaultType.filterPredicate(_this2.collectFormatted(row, col), _this2.searchTerm, _this2.searchSkipDiacritics);
 
                 if (matched) {
                   filteredRows.push(row);
@@ -14275,22 +14279,22 @@ var script$6 = {
             //* we need to get column for each sort
             var sortValue;
 
-            for (var i = 0; i < _this.sorts.length; i += 1) {
-              var column = _this.getColumnForField(_this.sorts[i].field);
+            for (var i = 0; i < _this2.sorts.length; i += 1) {
+              var column = _this2.getColumnForField(_this2.sorts[i].field);
 
-              var xvalue = _this.collect(xRow, _this.sorts[i].field);
+              var xvalue = _this2.collect(xRow, _this2.sorts[i].field);
 
-              var yvalue = _this.collect(yRow, _this.sorts[i].field); //* if a custom sort function has been provided we use that
+              var yvalue = _this2.collect(yRow, _this2.sorts[i].field); //* if a custom sort function has been provided we use that
 
 
               var sortFn = column.sortFn;
 
               if (sortFn && typeof sortFn === 'function') {
-                sortValue = sortValue || sortFn(xvalue, yvalue, column, xRow, yRow) * (_this.sorts[i].type === 'desc' ? -1 : 1);
+                sortValue = sortValue || sortFn(xvalue, yvalue, column, xRow, yRow) * (_this2.sorts[i].type === 'desc' ? -1 : 1);
               } //* else we use our own sort
 
 
-              sortValue = sortValue || column.typeDef.compare(xvalue, yvalue, column) * (_this.sorts[i].type === 'desc' ? -1 : 1);
+              sortValue = sortValue || column.typeDef.compare(xvalue, yvalue, column) * (_this2.sorts[i].type === 'desc' ? -1 : 1);
             }
 
             return sortValue;
@@ -14445,18 +14449,18 @@ var script$6 = {
       });
     },
     unselectAllInternal: function unselectAllInternal(forceAll) {
-      var _this2 = this;
+      var _this3 = this;
 
       var rows = this.selectAllByPage && !forceAll ? this.paginated : this.filteredRows;
       lodash_foreach(rows, function (headerRow, i) {
         lodash_foreach(headerRow.children, function (row, j) {
-          _this2.$set(row, 'vgtSelected', false);
+          _this3.$set(row, 'vgtSelected', false);
         });
       });
       this.emitSelectedRows();
     },
     toggleSelectAll: function toggleSelectAll() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.allSelected) {
         this.unselectAllInternal();
@@ -14466,7 +14470,7 @@ var script$6 = {
       var rows = this.selectAllByPage ? this.paginated : this.filteredRows;
       lodash_foreach(rows, function (headerRow) {
         lodash_foreach(headerRow.children, function (row) {
-          _this3.$set(row, 'vgtSelected', true);
+          _this4.$set(row, 'vgtSelected', true);
         });
       });
       this.emitSelectedRows();
@@ -14703,7 +14707,7 @@ var script$6 = {
     },
     // method to filter rows
     filterRows: function filterRows(columnFilters) {
-      var _this4 = this;
+      var _this5 = this;
 
       var fromFilter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       console.log('trying to filter'); // console.log('trying to filter')
@@ -14748,19 +14752,19 @@ var script$6 = {
         }
 
         var _loop = function _loop(i) {
-          var col = _this4.typedColumns[i];
+          var col = _this5.typedColumns[i];
 
-          if (_this4.columnFilters[col.field]) {
+          if (_this5.columnFilters[col.field]) {
             computedRows = lodash_foreach(computedRows, function (headerRow) {
               var newChildren = headerRow.children.filter(function (row) {
                 // If column has a custom filter, use that.
                 if (col.filterOptions && typeof col.filterOptions.filterFn === 'function') {
-                  return col.filterOptions.filterFn(_this4.collect(row, col.field), _this4.columnFilters[col.field]);
+                  return col.filterOptions.filterFn(_this5.collect(row, col.field), _this5.columnFilters[col.field]);
                 } // If the column has an array of filter values match any
 
 
                 if (col.filterOptions && col.filterOptions.filterMultiselectDropdownItems) {
-                  if (_this4.columnFilters[col.field].length === 0) {
+                  if (_this5.columnFilters[col.field].length === 0) {
                     return true;
                   } // Otherwise Use default filters
 
@@ -14771,10 +14775,10 @@ var script$6 = {
                   var _iteratorError = undefined;
 
                   try {
-                    for (var _iterator = _this4.columnFilters[col.field][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    for (var _iterator = _this5.columnFilters[col.field][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                       var _filter = _step.value;
 
-                      if (_typeDef.filterPredicate(_this4.collect(row, col.field), _filter)) {
+                      if (_typeDef.filterPredicate(_this5.collect(row, col.field), _filter)) {
                         return true;
                       }
                     }
@@ -14798,7 +14802,7 @@ var script$6 = {
 
 
                 var typeDef = col.typeDef;
-                return typeDef.filterPredicate(_this4.collect(row, col.field), _this4.columnFilters[col.field]);
+                return typeDef.filterPredicate(_this5.collect(row, col.field), _this5.columnFilters[col.field]);
               }); // should we remove the header?
 
               headerRow.children = newChildren;
@@ -14843,7 +14847,7 @@ var script$6 = {
       return originalRows;
     },
     initializePagination: function initializePagination() {
-      var _this5 = this;
+      var _this6 = this;
 
       var _this$paginationOptio = this.paginationOptions,
           enabled = _this$paginationOptio.enabled,
@@ -14921,7 +14925,7 @@ var script$6 = {
 
       if (typeof setCurrentPage === 'number') {
         setTimeout(function () {
-          _this5.changePage(setCurrentPage);
+          _this6.changePage(setCurrentPage);
         }, 500);
       }
     },
