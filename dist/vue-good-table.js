@@ -14444,11 +14444,10 @@
           this.$refs['table-header-secondary'].reset(true);
         }
       },
-      emitSelectedRows: function emitSelectedRows() {
-        this.$emit('on-select-all', {
-          selected: this.selectedRowCount === this.totalRowCount,
-          selectedRows: this.selectedRows
-        });
+      emitSelectedRows: function emitSelectedRows() {// this.$emit('on-select-all', {
+        //   selected: this.selectedRowCount === this.totalRowCount,
+        //   selectedRows: this.selectedRows,
+        // });
       },
       unselectAllInternal: function unselectAllInternal(forceAll) {
         var _this2 = this;
@@ -15325,7 +15324,30 @@
             })] : undefined;
           }
         }], null, true)
-      }) : _vm._e(), _vm._v(" "), _vm._l(headerRow.children, function (row, index) {
+      }) : _vm._e(), _vm._v(" "), _c('tr', [_c('td', {
+        attrs: {
+          "colspan": _vm.fullColspan
+        }
+      }, [_c('input', {
+        directives: [{
+          name: "model",
+          rawName: "v-model",
+          value: _vm.rows[0].age,
+          expression: "rows[0].age"
+        }],
+        domProps: {
+          "value": _vm.rows[0].age
+        },
+        on: {
+          "input": function input($event) {
+            if ($event.target.composing) {
+              return;
+            }
+
+            _vm.$set(_vm.rows[0], "age", $event.target.value);
+          }
+        }
+      })])]), _vm._v(" "), _vm._l(headerRow.children, function (row, index) {
         return _c('tr', {
           key: row.originalIndex,
           "class": _vm.getRowStyleClass(row),
