@@ -1307,7 +1307,7 @@
             }
           }
           this.filteredRows = computedRows;
-      }, 500),
+      }, 1000),
 
       // method to filter rows
       filterRows(columnFilters, fromFilter = true) {

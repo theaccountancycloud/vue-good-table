@@ -14817,7 +14817,7 @@
         }
 
         this.filteredRows = computedRows;
-      }, 500),
+      }, 1000),
       // method to filter rows
       filterRows: function filterRows(columnFilters) {
         var _this5 = this;
