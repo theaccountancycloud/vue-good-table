@@ -1219,7 +1219,7 @@
 
 
       filterRowsDebounce: debounce(function(columnFilters, fromFilter = true) {
-          console.log('trying to filter debounce');
+          //console.log('trying to filter debounce');
           // console.log('trying to filter')
           // console.log('from filter '+fromFilter);
           // if (!fromFilter) return;
@@ -1307,12 +1307,11 @@
             }
           }
           this.filteredRows = computedRows;
-      }, 1000),
+      }, 750),
 
       // method to filter rows
       filterRows(columnFilters, fromFilter = true) {
-        console.log('trying to filter');
-        // console.log('trying to filter')
+        //console.log('trying to filter');
         // console.log('from filter '+fromFilter);
         // if (!fromFilter) return;
         // if (!this.rows.length) return;
