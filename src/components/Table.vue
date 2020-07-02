@@ -462,9 +462,8 @@
       rows: {
         handler() {
           this.$emit('update:isLoading', false);
-
-          this.debounceFilter(this.filterRows(this.columnFilters, false));
-          // debounce(() => this.filterRows(this.columnFilters, false), 2000);
+          this.filterRowsDebounce(this.columnFilters, false)
+          //debounce(() => this.filterRows(this.columnFilters, false), 2000);
         },
         deep: true,
         immediate: true,
@@ -890,7 +889,6 @@
     },
 
     created(){
-
       let temp_array = {};
 
       this.columns.forEach(function (column) {
@@ -917,9 +915,6 @@
     },
 
     methods: {
-
-
-      debounceFilter: debounce((filterRows) => filterRows, 2000),
 
       isFunction(functionToCheck) {
         return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
@@ -1221,6 +1216,98 @@
         }
         return classes;
       },
+
+
+      filterRowsDebounce: debounce(function(columnFilters, fromFilter = true) {
+          console.log('trying to filter debounce');
+          // console.log('trying to filter')
+          // console.log('from filter '+fromFilter);
+          // if (!fromFilter) return;
+          // if (!this.rows.length) return;
+          // this is invoked either as a result of changing filters
+          // or as a result of modifying rows.
+          this.columnFilters = columnFilters;
+          let computedRows = cloneDeep(this.originalRows);
+
+          // do we have a filter to care about?
+          // if not we don't need to do anything
+          if (this.columnFilters && Object.keys(this.columnFilters).length) {
+            // every time we filter rows, we need to set current page
+            // to 1
+            // if the mode is remote, we only need to reset, if this is
+            // being called from filter, not when rows are changing
+            if (this.mode !== 'remote' || fromFilter) {
+              this.changePage(1);
+            }
+            // we need to emit an event and that's that.
+            // but this only needs to be invoked if filter is changing
+            // not when row object is modified.
+            if (fromFilter) {
+              this.$emit('on-column-filter', {
+                columnFilters: this.columnFilters,
+              });
+            }
+
+            // if mode is remote, we don't do any filtering here.
+            if (this.mode === 'remote') {
+              if (fromFilter) {
+                this.$emit('update:isLoading', true);
+              } else {
+                // if remote filtering has already been taken care of.
+                this.filteredRows = computedRows;
+              }
+              return;
+            }
+
+            for (let i = 0; i < this.typedColumns.length; i++) {
+              const col = this.typedColumns[i];
+              if (this.columnFilters[col.field]) {
+                computedRows = each(computedRows, (headerRow) => {
+                  const newChildren = headerRow.children.filter((row) => {
+                    // If column has a custom filter, use that.
+                    if (
+                            col.filterOptions &&
+                            typeof col.filterOptions.filterFn === 'function'
+                    ) {
+                      return col.filterOptions.filterFn(
+                              this.collect(row, col.field),
+                              this.columnFilters[col.field]
+                      );
+                    }
+
+                    // If the column has an array of filter values match any
+                    if (col.filterOptions && col.filterOptions.filterMultiselectDropdownItems) {
+                      if(this.columnFilters[col.field].length === 0) {
+                        return true;
+                      }
+                      // Otherwise Use default filters
+                      const { typeDef } = col;
+                      for(let filter of this.columnFilters[col.field]) {
+                        if(typeDef.filterPredicate(
+                                this.collect(row, col.field),
+                                filter
+                        )){
+                          return true;
+                        }
+                      }
+                      return false;
+                    }
+
+                    // Otherwise Use default filters
+                    const { typeDef } = col;
+                    return typeDef.filterPredicate(
+                            this.collect(row, col.field),
+                            this.columnFilters[col.field]
+                    );
+                  });
+                  // should we remove the header?
+                  headerRow.children = newChildren;
+                });
+              }
+            }
+          }
+          this.filteredRows = computedRows;
+      }, 500),
 
       // method to filter rows
       filterRows(columnFilters, fromFilter = true) {
@@ -1525,13 +1612,10 @@
     },
 
     mounted() {
-
       if (this.perPage) {
         this.currentPerPage = this.perPage;
       }
       this.initializeSort();
-
-
     },
 
     components: {

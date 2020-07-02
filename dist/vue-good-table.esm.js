@@ -14024,7 +14024,7 @@ var script$6 = {
     rows: {
       handler: function handler() {
         this.$emit('update:isLoading', false);
-        this.debounceFilter(this.filterRows(this.columnFilters, false)); // debounce(() => this.filterRows(this.columnFilters, false), 2000);
+        this.filterRowsDebounce(this.columnFilters, false); //debounce(() => this.filterRows(this.columnFilters, false), 2000);
       },
       deep: true,
       immediate: true
@@ -14412,9 +14412,6 @@ var script$6 = {
     this.filterDropdownOptions = temp_array;
   },
   methods: {
-    debounceFilter: lodash_debounce(function (filterRows) {
-      return filterRows;
-    }, 2000),
     isFunction: function isFunction(functionToCheck) {
       return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
     },
@@ -14704,12 +14701,11 @@ var script$6 = {
 
       return classes;
     },
-    // method to filter rows
-    filterRows: function filterRows(columnFilters) {
+    filterRowsDebounce: lodash_debounce(function (columnFilters) {
       var _this4 = this;
 
       var fromFilter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      console.log('trying to filter'); // console.log('trying to filter')
+      console.log('trying to filter debounce'); // console.log('trying to filter')
       // console.log('from filter '+fromFilter);
       // if (!fromFilter) return;
       // if (!this.rows.length) return;
@@ -14815,6 +14811,118 @@ var script$6 = {
       }
 
       this.filteredRows = computedRows;
+    }, 500),
+    // method to filter rows
+    filterRows: function filterRows(columnFilters) {
+      var _this5 = this;
+
+      var fromFilter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      console.log('trying to filter'); // console.log('trying to filter')
+      // console.log('from filter '+fromFilter);
+      // if (!fromFilter) return;
+      // if (!this.rows.length) return;
+      // this is invoked either as a result of changing filters
+      // or as a result of modifying rows.
+
+      this.columnFilters = columnFilters;
+      var computedRows = lodash_clonedeep(this.originalRows); // do we have a filter to care about?
+      // if not we don't need to do anything
+
+      if (this.columnFilters && Object.keys(this.columnFilters).length) {
+        // every time we filter rows, we need to set current page
+        // to 1
+        // if the mode is remote, we only need to reset, if this is
+        // being called from filter, not when rows are changing
+        if (this.mode !== 'remote' || fromFilter) {
+          this.changePage(1);
+        } // we need to emit an event and that's that.
+        // but this only needs to be invoked if filter is changing
+        // not when row object is modified.
+
+
+        if (fromFilter) {
+          this.$emit('on-column-filter', {
+            columnFilters: this.columnFilters
+          });
+        } // if mode is remote, we don't do any filtering here.
+
+
+        if (this.mode === 'remote') {
+          if (fromFilter) {
+            this.$emit('update:isLoading', true);
+          } else {
+            // if remote filtering has already been taken care of.
+            this.filteredRows = computedRows;
+          }
+
+          return;
+        }
+
+        var _loop2 = function _loop2(i) {
+          var col = _this5.typedColumns[i];
+
+          if (_this5.columnFilters[col.field]) {
+            computedRows = lodash_foreach(computedRows, function (headerRow) {
+              var newChildren = headerRow.children.filter(function (row) {
+                // If column has a custom filter, use that.
+                if (col.filterOptions && typeof col.filterOptions.filterFn === 'function') {
+                  return col.filterOptions.filterFn(_this5.collect(row, col.field), _this5.columnFilters[col.field]);
+                } // If the column has an array of filter values match any
+
+
+                if (col.filterOptions && col.filterOptions.filterMultiselectDropdownItems) {
+                  if (_this5.columnFilters[col.field].length === 0) {
+                    return true;
+                  } // Otherwise Use default filters
+
+
+                  var _typeDef2 = col.typeDef;
+                  var _iteratorNormalCompletion2 = true;
+                  var _didIteratorError2 = false;
+                  var _iteratorError2 = undefined;
+
+                  try {
+                    for (var _iterator2 = _this5.columnFilters[col.field][Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                      var _filter2 = _step2.value;
+
+                      if (_typeDef2.filterPredicate(_this5.collect(row, col.field), _filter2)) {
+                        return true;
+                      }
+                    }
+                  } catch (err) {
+                    _didIteratorError2 = true;
+                    _iteratorError2 = err;
+                  } finally {
+                    try {
+                      if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+                        _iterator2["return"]();
+                      }
+                    } finally {
+                      if (_didIteratorError2) {
+                        throw _iteratorError2;
+                      }
+                    }
+                  }
+
+                  return false;
+                } // Otherwise Use default filters
+
+
+                var typeDef = col.typeDef;
+                return typeDef.filterPredicate(_this5.collect(row, col.field), _this5.columnFilters[col.field]);
+              }); // should we remove the header?
+
+              headerRow.children = newChildren;
+            });
+          }
+        };
+
+        for (var i = 0; i < this.typedColumns.length; i++) {
+          _loop2(i);
+        }
+      }
+
+      this.filteredRows = computedRows;
     },
     getCurrentIndex: function getCurrentIndex(index) {
       return (this.currentPage - 1) * this.currentPerPage + index + 1;
@@ -14846,7 +14954,7 @@ var script$6 = {
       return originalRows;
     },
     initializePagination: function initializePagination() {
-      var _this5 = this;
+      var _this6 = this;
 
       var _this$paginationOptio = this.paginationOptions,
           enabled = _this$paginationOptio.enabled,
@@ -14924,7 +15032,7 @@ var script$6 = {
 
       if (typeof setCurrentPage === 'number') {
         setTimeout(function () {
-          _this5.changePage(setCurrentPage);
+          _this6.changePage(setCurrentPage);
         }, 500);
       }
     },
