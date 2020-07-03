@@ -184,7 +184,7 @@
           <!-- normal rows here. we loop over all rows -->
 <!--          @mouseenter="onMouseenter(row, index)"-->
 <!--          @mouseleave="onMouseleave(row, index)"-->
-          <tr><td :colspan="fullColspan"><input v-model="rows[0].age"></td></tr>
+<!--          <tr><td :colspan="fullColspan"><input v-model="rows[0].age"></td></tr>-->
           <tr
                   v-for="(row, index) in headerRow.children"
                   :key="row.originalIndex"
