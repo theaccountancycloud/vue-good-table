@@ -18,6 +18,11 @@
       </select>
     </div>
     <div class="footer__navigation vgt-pull-right">
+      <span
+        class="uncategorised-count"
+        v-if="typeof totalUncategorised !== undefined">
+        {{ totalUncategorised }} uncategorised
+      </span>
       <a
         href="javascript:undefined"
         class="footer__navigation__page-btn"
@@ -57,6 +62,7 @@ export default {
   props: {
     styleClass: { default: 'table table-bordered' },
     total: { default: null },
+    totalUncategorised: { default: 0 },
     perPage: {},
     rtl: { default: false },
     customRowsPerPageDropdown: { default() { return []; } },

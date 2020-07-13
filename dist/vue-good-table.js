@@ -8013,6 +8013,9 @@
       total: {
         "default": null
       },
+      totalUncategorised: {
+        "default": 0
+      },
       perPage: {},
       rtl: {
         "default": false
@@ -8177,7 +8180,6 @@
     }
   };
 
-  /* script */
   var __vue_script__$1 = script$1;
   /* template */
 
@@ -8230,7 +8232,9 @@
       }
     }, [_vm._v(_vm._s(_vm.allText))]) : _vm._e()], 2)]), _vm._v(" "), _c('div', {
       staticClass: "footer__navigation vgt-pull-right"
-    }, [_c('a', {
+    }, [_typeof(_vm.totalUncategorised) !== undefined ? _c('span', {
+      staticClass: "uncategorised-count"
+    }, [_vm._v("\n      " + _vm._s(_vm.totalUncategorised) + " uncategorised\n    ")]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "footer__navigation__page-btn",
       "class": {
         disabled: !_vm.prevIsPossible
@@ -13908,6 +13912,7 @@
       // could be remote
       totalRows: {},
       // required if mode = 'remote'
+      totalUncategorised: {},
       styleClass: {
         "default": 'vgt-table bordered'
       },
@@ -15413,6 +15418,7 @@
         "perPage": _vm.perPage,
         "rtl": _vm.rtl,
         "total": _vm.totalRows || _vm.totalRowCount,
+        "totalUncategorised": _vm.totalUncategorised,
         "mode": _vm.paginationMode,
         "nextText": _vm.nextText,
         "prevText": _vm.prevText,

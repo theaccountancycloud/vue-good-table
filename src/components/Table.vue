@@ -294,6 +294,7 @@
                 :perPage="perPage"
                 :rtl="rtl"
                 :total="totalRows || totalRowCount"
+                :totalUncategorised="totalUncategorised"
                 :mode="paginationMode"
                 :nextText="nextText"
                 :prevText="prevText"
@@ -343,6 +344,7 @@
       theme: { default: '' },
       mode: { default: 'local' }, // could be remote
       totalRows: {}, // required if mode = 'remote'
+      totalUncategorised: {},
       styleClass: { default: 'vgt-table bordered' },
       columns: {},
       rows: {},
