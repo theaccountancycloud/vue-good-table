@@ -21,7 +21,7 @@
       <span
         class="unreconciled-count"
         v-if="typeof totalUnreconciled !== undefined">
-        {{ totalUnreconciled }} unreconciled
+        {{ totalUnreconciled }} unapproved
       </span>
       <a
         href="javascript:undefined"
