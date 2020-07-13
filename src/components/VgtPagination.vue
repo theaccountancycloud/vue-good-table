@@ -20,8 +20,8 @@
     <div class="footer__navigation vgt-pull-right">
       <span
         class="uncategorised-count"
-        v-if="typeof totalUncategorised !== undefined">
-        {{ totalUncategorised }} uncategorised
+        v-if="typeof totalUnreconciled !== undefined">
+        {{ totalUnreconciled }} uncategorised
       </span>
       <a
         href="javascript:undefined"
@@ -62,7 +62,7 @@ export default {
   props: {
     styleClass: { default: 'table table-bordered' },
     total: { default: null },
-    totalUncategorised: { default: 0 },
+    totalUnreconciled: { default: 0 },
     perPage: {},
     rtl: { default: false },
     customRowsPerPageDropdown: { default() { return []; } },

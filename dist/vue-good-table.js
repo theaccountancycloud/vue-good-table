@@ -8013,7 +8013,7 @@
       total: {
         "default": null
       },
-      totalUncategorised: {
+      totalUnreconciled: {
         "default": 0
       },
       perPage: {},
@@ -8232,9 +8232,9 @@
       }
     }, [_vm._v(_vm._s(_vm.allText))]) : _vm._e()], 2)]), _vm._v(" "), _c('div', {
       staticClass: "footer__navigation vgt-pull-right"
-    }, [_typeof(_vm.totalUncategorised) !== undefined ? _c('span', {
+    }, [_typeof(_vm.totalUnreconciled) !== undefined ? _c('span', {
       staticClass: "uncategorised-count"
-    }, [_vm._v("\n      " + _vm._s(_vm.totalUncategorised) + " uncategorised\n    ")]) : _vm._e(), _vm._v(" "), _c('a', {
+    }, [_vm._v("\n      " + _vm._s(_vm.totalUnreconciled) + " uncategorised\n    ")]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "footer__navigation__page-btn",
       "class": {
         disabled: !_vm.prevIsPossible
@@ -13912,7 +13912,7 @@
       // could be remote
       totalRows: {},
       // required if mode = 'remote'
-      totalUncategorised: {},
+      totalUnreconciled: {},
       styleClass: {
         "default": 'vgt-table bordered'
       },
@@ -15418,7 +15418,7 @@
         "perPage": _vm.perPage,
         "rtl": _vm.rtl,
         "total": _vm.totalRows || _vm.totalRowCount,
-        "totalUncategorised": _vm.totalUncategorised,
+        "totalUnreconciled": _vm.totalUnreconciled,
         "mode": _vm.paginationMode,
         "nextText": _vm.nextText,
         "prevText": _vm.prevText,
