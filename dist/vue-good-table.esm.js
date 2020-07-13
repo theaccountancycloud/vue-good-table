@@ -8228,7 +8228,7 @@ var __vue_render__$1 = function __vue_render__() {
     staticClass: "footer__navigation vgt-pull-right"
   }, [_typeof(_vm.totalUnreconciled) !== undefined ? _c('span', {
     staticClass: "unreconciled-count"
-  }, [_vm._v("\n      " + _vm._s(_vm.totalUnreconciled) + " unreconciled\n    ")]) : _vm._e(), _vm._v(" "), _c('a', {
+  }, [_vm._v("\n      " + _vm._s(_vm.totalUnreconciled) + " unapproved\n    ")]) : _vm._e(), _vm._v(" "), _c('a', {
     staticClass: "footer__navigation__page-btn",
     "class": {
       disabled: !_vm.prevIsPossible
