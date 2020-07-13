@@ -19,7 +19,7 @@
     </div>
     <div class="footer__navigation vgt-pull-right">
       <span
-        class="uncategorised-count"
+        class="unreconciled-count"
         v-if="typeof totalUnreconciled !== undefined">
         {{ totalUnreconciled }} uncategorised
       </span>
